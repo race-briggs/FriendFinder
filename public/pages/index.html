@@ -17,6 +17,27 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-  
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Friend Finder</h1>
+      <p class="lead">Are you soul crushingly lonely? Trouble meeting new people? Look no further! Simply answer a few questions and have cold computer logic pair you with a new best friend!</p>
+
+      <button type="button" class="btn btn-primary btn-lg" id="survey-btn">Take the survey!</button>
+    </div>
+  </div>
+  <script>
+    $('#survey-btn').on('click', function(event){
+
+      event.preventDefault()
+
+      console.log('Survey Time!!!');
+
+      $.ajax('/survey', {
+        type: 'GET',
+      }).then(function(){
+        console.log('Welcome to survey.html')
+      })
+    })
+  </script>
 </body>
 </html>
