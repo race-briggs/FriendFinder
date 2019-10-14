@@ -1,0 +1,25 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "description": "An App to Find Lonely People In Your Neighborhood",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "dotenv": "^8.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/race-briggs/FriendFinder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/race-briggs/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/race-briggs/FriendFinder#readme"
+}
