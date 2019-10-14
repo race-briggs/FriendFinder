@@ -1,5 +1,13 @@
+var connection = require('../config/connection.js');
 
 module.exports = function(app){
+
+  app.get('/api/survey', function(req, res){
+    var query = 'SELECT * FROM friendslist';
+    connection.query(query, function(error, results){
+      res.json(results);
+    })
+  })
 
   app.post('/api/survey', function (req, res) {
     console.log(req.body);

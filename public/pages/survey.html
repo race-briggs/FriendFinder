@@ -31,7 +31,7 @@
   </div>
   <form class="survey-form">
     <div class="question">
-      <p>What is your name?</p><input type="text" class="name-form">
+      <h3>What is your name?</3><input type="text" class="name-form">
     </div>
     <div class="question1 question">
       <h3>Question 1: You like to eat sweets.</h3>
@@ -266,6 +266,9 @@
     <button type="submit" class="btn btn-lg btn-primary" id="submit-btn">Submit</button>
   </form>
   <script>
+    var friendArray = []
+    var loner;
+
     $('#submit-btn').on('click', function(event){
       event.preventDefault();
 
@@ -283,13 +286,51 @@
         q10: parseInt($('.question10').find('input:checked').val())
       }
 
+      loner = friend;
+
       $.ajax('/api/survey', {
         data: friend,
         type: 'POST'
       }).then(function(response){
         console.log(resposne);
+        findFriend(friendArray, loner);
       })
     })
+
+    function getList(array){
+      $.ajax('/api/survey', {
+        type: "GET"
+      }).then(function(response){
+        for(var i = 0; i < response.length; i++){
+          friendArray.push(response[i]);
+        }
+        console.log(friendArray);
+      })
+    }
+
+    function findFriend(array, loner){
+      var currentFriendshipCoefficient;
+      var leadingScore = 10;
+      var bestfriend = {};
+      for(var i = 0; i < array.length; i++){
+        currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].q1) + Math.abs(loner.q2 - array[i].q2) + Math.abs(loner.q3 - array[i].q3) + Math.abs(loner.q4 - array[i].q4) + Math.abs(loner.q5 - array[i].q5) + Math.abs(loner.q6 - array[i].q6) + Math.abs(loner.q7 - array[i].q7) + Math.abs(loner.q8 - array[i].q8) + Math.abs(loner.q9 - array[i].q9) + Math.abs(loner.q10 - array[i].q10));
+
+        console.log(currentFriendshipCoefficient);
+
+        if(currentFriendshipCoefficient < leadingScore){
+          leadingScore = currentFriendshipCoefficient;
+          bestfriend = array[i];
+        }
+      }
+      displayFriend(bestfriend);
+    }
+
+    function displayFriend(bestie){
+
+    }
+
+    getList(friendArray);
+
   </script>
 </body>
 
