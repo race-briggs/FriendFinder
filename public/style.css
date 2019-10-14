@@ -1,0 +1,17 @@
+form {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.question {
+  padding: 5px;
+  margin-bottom: 2%;
+}
+
+#submit-btn {
+  margin: 2% 0;
+}
+
+.container {
+  text-align: center;
+}
