@@ -17,6 +17,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/style.css">
@@ -31,7 +32,10 @@
   </div>
   <form class="survey-form">
     <div class="question">
-      <h3>What is your name?</3><input type="text" class="name-form">
+      <h3>What is your name?</3><input type="text" class="name-form" required="true">
+    </div>
+    <div class="question">
+      <h3>Give us a Pic!</h3><input type="text" class="img-form" required="true">
     </div>
     <div class="question1 question">
       <h3>Question 1: You like to eat sweets.</h3>
@@ -274,6 +278,7 @@
 
       var friend = {
         name: $('.name-form').val(),
+        image: $('.img-form').val(),
         q1: parseInt($('.question1').find('input:checked').val()),
         q2: parseInt($('.question2').find('input:checked').val()),
         q3: parseInt($('.question3').find('input:checked').val()),
@@ -292,7 +297,7 @@
         data: friend,
         type: 'POST'
       }).then(function(response){
-        console.log(resposne);
+        console.log(response);
         findFriend(friendArray, loner);
       })
     })
@@ -309,11 +314,15 @@
     }
 
     function findFriend(array, loner){
-      var currentFriendshipCoefficient;
+      var currentFriendshipCoefficient = 0;
       var leadingScore = 10;
       var bestfriend = {};
+      console.log(array);
+      console.log(loner);
       for(var i = 0; i < array.length; i++){
-        currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].q1) + Math.abs(loner.q2 - array[i].q2) + Math.abs(loner.q3 - array[i].q3) + Math.abs(loner.q4 - array[i].q4) + Math.abs(loner.q5 - array[i].q5) + Math.abs(loner.q6 - array[i].q6) + Math.abs(loner.q7 - array[i].q7) + Math.abs(loner.q8 - array[i].q8) + Math.abs(loner.q9 - array[i].q9) + Math.abs(loner.q10 - array[i].q10));
+        currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].question1) + Math.abs(loner.q2 - array[i].question2) + Math.abs(loner.q3 - array[i].question3) + Math.abs(loner.q4 - array[i].question4) + Math.abs(loner.q5 - array[i].question5) + Math.abs(loner.q6 - array[i].question6) + Math.abs(loner.q7 - array[i].question7) + Math.abs(loner.q8 - array[i].question8) + Math.abs(loner.q9 - array[i].question9) + Math.abs(loner.q10 - array[i].question10));
+
+        // currentFriendshipCoefficient = Math.abs((loner.q1 - array[i].question1) + (loner.q2 - array[i].question2) + (loner.q3 - array[i].question3) + (loner.q4 - array[i].question4) + (loner.q5 - array[i].question5) + (loner.q6 - array[i].question6) + (loner.q7 - array[i].question7) + (loner.q8 - array[i].question8) + (loner.q9 - array[i].question9) + (loner.q10 - array[i].question10));
 
         console.log(currentFriendshipCoefficient);
 
@@ -322,11 +331,18 @@
           bestfriend = array[i];
         }
       }
+      console.log(bestfriend);
       displayFriend(bestfriend);
     }
 
     function displayFriend(bestie){
-
+      Swal.fire({
+        title: "Here is your new friend! It's "+ bestie.name,
+        imageUrl: bestie.image,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'friendly image'
+      });
     }
 
     getList(friendArray);
