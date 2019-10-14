@@ -25,7 +25,17 @@ connection.connect(function(error){
   }
 })
 
+app.get('/', function(req, res){
+  res.sendFile('./public/pages/index.html');
+})
 
+app.get('/survey', function(req, res){
+  res.sendFile('./public/pages/survey.html');
+});
+
+app.post('/api/survey', function(req, res){
+  console.log(req.body);
+})
 
 app.listen(PORT, function(){
   console.log('App is listening on PORT '+PORT);
