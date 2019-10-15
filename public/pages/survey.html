@@ -32,7 +32,7 @@
   </div>
   <form class="survey-form">
     <div class="question">
-      <h3>What is your name?</3><input type="text" class="name-form" required="true">
+      <h3>What is your name?</h3><input type="text" class="name-form" required="true">
     </div>
     <div class="question">
       <h3>Give us a Pic!</h3><input type="text" class="img-form" required="true">
@@ -293,23 +293,41 @@
 
       loner = friend;
 
-      $.ajax('/api/survey', {
-        data: friend,
-        type: 'POST'
-      }).then(function(response){
-        console.log(response);
-        findFriend(friendArray, loner);
+      // database post call
+      // $.ajax('/api/survey', {
+      //   data: friend,
+      //   type: 'POST'
+      // }).then(function (response) {
+      //   console.log(response);
+      //   findFriend(friendArray, loner);
+      // })
+
+      $.post('/api/friends', friend, function(){
+        console.log("let's get you some friends...");
+        getList();
       })
     })
 
-    function getList(array){
-      $.ajax('/api/survey', {
+    function getList(){
+      // database get call
+      // $.ajax('/api/survey', {
+      //   type: "GET"
+      // }).then(function (response) {
+      //   for (var i = 0; i < response.length; i++) {
+      //     friendArray.push(response[i]);
+      //   }
+      //   console.log(friendArray);
+      // })
+
+      $.ajax('/api/friends', {
         type: "GET"
       }).then(function(response){
-        for(var i = 0; i < response.length; i++){
-          friendArray.push(response[i]);
-        }
-        console.log(friendArray);
+        console.log('Getting Friends...')
+        // for(var i = 0; i < response.length; i++){
+        //   friendArray.push(response[i]);
+        // }
+        newFriendArray = response;
+        findFriend(newFriendArray, loner);
       })
     }
 
@@ -320,9 +338,10 @@
       console.log(array);
       console.log(loner);
       for(var i = 0; i < array.length; i++){
-        currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].question1) + Math.abs(loner.q2 - array[i].question2) + Math.abs(loner.q3 - array[i].question3) + Math.abs(loner.q4 - array[i].question4) + Math.abs(loner.q5 - array[i].question5) + Math.abs(loner.q6 - array[i].question6) + Math.abs(loner.q7 - array[i].question7) + Math.abs(loner.q8 - array[i].question8) + Math.abs(loner.q9 - array[i].question9) + Math.abs(loner.q10 - array[i].question10));
+        //Absolute value for database query
+        // currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].question1) + Math.abs(loner.q2 - array[i].question2) + Math.abs(loner.q3 - array[i].question3) + Math.abs(loner.q4 - array[i].question4) + Math.abs(loner.q5 - array[i].question5) + Math.abs(loner.q6 - array[i].question6) + Math.abs(loner.q7 - array[i].question7) + Math.abs(loner.q8 - array[i].question8) + Math.abs(loner.q9 - array[i].question9) + Math.abs(loner.q10 - array[i].question10));
 
-        // currentFriendshipCoefficient = Math.abs((loner.q1 - array[i].question1) + (loner.q2 - array[i].question2) + (loner.q3 - array[i].question3) + (loner.q4 - array[i].question4) + (loner.q5 - array[i].question5) + (loner.q6 - array[i].question6) + (loner.q7 - array[i].question7) + (loner.q8 - array[i].question8) + (loner.q9 - array[i].question9) + (loner.q10 - array[i].question10));
+        currentFriendshipCoefficient = (Math.abs(loner.q1 - array[i].q1) + Math.abs(loner.q2 - array[i].q2) + Math.abs(loner.q3 - array[i].q3) + Math.abs(loner.q4 - array[i].q4) + Math.abs(loner.q5 - array[i].q5) + Math.abs(loner.q6 - array[i].q6) + Math.abs(loner.q7 - array[i].q7) + Math.abs(loner.q8 - array[i].q8) + Math.abs(loner.q9 - array[i].q9) + Math.abs(loner.q10 - array[i].q10));
 
         console.log(currentFriendshipCoefficient);
 
@@ -344,8 +363,6 @@
         imageAlt: 'friendly image'
       });
     }
-
-    getList(friendArray);
 
   </script>
 </body>
