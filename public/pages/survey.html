@@ -270,7 +270,7 @@
     <button type="submit" class="btn btn-lg btn-primary" id="submit-btn">Submit</button>
   </form>
   <script>
-    var friendArray = []
+    var newFriendArray = [];
     var loner;
 
     $('#submit-btn').on('click', function(event){
@@ -299,7 +299,7 @@
       //   type: 'POST'
       // }).then(function (response) {
       //   console.log(response);
-      //   findFriend(friendArray, loner);
+      //   findFriend(newFriendArray, loner);
       // })
 
       $.post('/api/friends', friend, function(){
