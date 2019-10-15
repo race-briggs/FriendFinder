@@ -306,6 +306,10 @@
         console.log("let's get you some friends...");
         getList();
       })
+
+      $('.name-form').val("");
+      $('.img-form').val("");
+
     })
 
     function getList(){
@@ -345,9 +349,11 @@
 
         console.log(currentFriendshipCoefficient);
 
-        if(currentFriendshipCoefficient < leadingScore){
+        if(currentFriendshipCoefficient <= leadingScore){
           leadingScore = currentFriendshipCoefficient;
-          bestfriend = array[i];
+          if(array[i].name !== loner.name){
+            bestfriend = array[i];
+          }
         }
       }
       console.log(bestfriend);
