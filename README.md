@@ -19,6 +19,13 @@ Friend Finder is a helpful matchmaking app that aims to make you less lonely by 
 * Bootstrap
 * dotenv
 * sweetalert2.js
+* (mysql/sql database)
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+## Disclaimer
+
+I initially designed this to work with mysql, but realized that was not the goal of the assignment/app. I changed the app to work as requested, but left the mysql pieces in the code in case anyone looking was curious or wanted to try it.
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
